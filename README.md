@@ -10,4 +10,9 @@ Use db.sh
 ./db.sh 
 ```
 
+Close all server
+```
+killall5 -9
+```
+
  
