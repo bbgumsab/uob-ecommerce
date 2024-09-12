@@ -5,15 +5,17 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController {
     
     @GetMapping("/")
-    @ResponseBody
-    public String helloWorld() {
-        return "<h1>Hello World</h1>";
+    // @ResponseBody
+    // public String helloWorld() {
+    //     return "<h1>Hello World</h1>";
+    // }
+    public String home(Model model) {
+        return "home";
     }
 
     @GetMapping("/about-us")
