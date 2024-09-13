@@ -19,6 +19,9 @@
             <tr th:each="product : ${products}">
                 <td th:text="${product.name}"></td>
                 <td th:text="${product.price}"></td>
+                <td>
+                    <a th:href="@{/products/{id}(id=${product.id})}">Details</a>
+                </td>
             </tr>
         </tbody>
     </table>
