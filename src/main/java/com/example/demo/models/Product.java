@@ -9,15 +9,18 @@ import jakarta.validation.constraints.Size;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "products")
 public class Product {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,13 +29,25 @@ public class Product {
     private String description;
 
     @NotBlank(message = "Name cannot be blank")
-    @Size(min=2, max=100, message="Name must be between 2 and 100 characters")
+    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
     @Column(nullable = false)
     private String name;
 
-    @DecimalMin(value="0.01", message="Price must be greater than 0.01")
+    @DecimalMin(value = "0.01", message = "Price must be greater than 0.01")
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public Product() {
     }
@@ -76,32 +91,33 @@ public class Product {
     }
 
     // toString method
-   @Override
-   public String toString() {
-       return "Product{" +
-               "id=" + id +
-               ", name='" + name + '\'' +
-               ", description='" + description + '\'' +
-               ", price=" + price +
-               '}';
-   }
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
+    }
 
-   // equals and hashCode methods
-   @Override
-   public boolean equals(Object o) {
-       if (this == o) return true;
-       if (o == null || getClass() != o.getClass()) return false;
-       Product product = (Product) o;
-       return Objects.equals(id, product.id) &&
-               Objects.equals(name, product.name) &&
-               Objects.equals(description, product.description) &&
-               Objects.equals(price, product.price);
-   }
+    // equals and hashCode methods
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(description, product.description) &&
+                Objects.equals(price, product.price);
+    }
 
-   @Override
-   public int hashCode() {
-       return Objects.hash(id, name, description, price);
-   }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, price);
+    }
 
-    
 }
