@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-    th:fragment="html(title,content,additionalCss, additionalScripts)"    
->
+<html lang="en" th:fragment="html(title,content,additionalCss, additionalScripts)">
 
 <head>
     <meta charset="UTF-8">
@@ -28,6 +26,20 @@
                         <a class="nav-link" href="/products/create">Create Product</a>
                     </li>
                 </ul>
+
+                <div class="navbar-nav ms-auto">
+                    <span class="nav-item nav-link" th:if="${isAuthenticated}">
+                        Welcome, <span th:text="${currentUser}"></span>!
+                    </span>
+                    <li class="nav-item" ></li>
+                    <form th:if="${isAuthenticated}" id="logout-form" action="/logout" method="POST" style="display: inline;">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                        <button type="submit" class="btn btn-link nav-link" style="display: inline; cursor: pointer;">
+                            Logout
+                        </button>
+                    </form>
+                    </li>
+                </div>
             </div>
         </nav>
 
