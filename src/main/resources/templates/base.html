@@ -31,9 +31,8 @@
                     <span class="nav-item nav-link" th:if="${isAuthenticated}">
                         Welcome, <span th:text="${currentUser}"></span>!
                     </span>
-                    <a class="nav-item nav-link" href="/login" th:unless="${isAuthenticated}">Login</a>
-                    <li class="nav-item" th:if="${isAuthenticated}"></li>
-                    <form id="logout-form" action="/logout" method="POST" style="display: inline;">
+                    <li class="nav-item" ></li>
+                    <form th:if="${isAuthenticated}" id="logout-form" action="/logout" method="POST" style="display: inline;">
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
                         <button type="submit" class="btn btn-link nav-link" style="display: inline; cursor: pointer;">
                             Logout

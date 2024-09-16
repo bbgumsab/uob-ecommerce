@@ -20,7 +20,7 @@ public class GlobalControllerAdvice {
     @ModelAttribute("isAuthenticated")
     public boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication != null && authentication.isAuthenticated();
+        return authentication != null && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser");
     }
 }
 
