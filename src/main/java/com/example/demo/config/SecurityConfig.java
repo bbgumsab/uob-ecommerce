@@ -17,7 +17,8 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/register", "/login", "/css/**", "/js/**").permitAll()
-                .anyRequest().permitAll()
+                //.anyRequest().authenticated()
+                .anyRequest().permitAll() // switch to this line to disable security
             )
             .formLogin(form -> form
                 .loginPage("/login")
