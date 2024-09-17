@@ -28,11 +28,15 @@
                 </ul>
 
                 <div class="navbar-nav ms-auto">
+                    <li class="nav-item"></li>
+                    <a class="nav-link" href="/cart">Cart</a>
+                    </li>
                     <span class="nav-item nav-link" th:if="${isAuthenticated}">
                         Welcome, <span th:text="${currentUser}"></span>!
                     </span>
-                    <li class="nav-item" ></li>
-                    <form th:if="${isAuthenticated}" id="logout-form" action="/logout" method="POST" style="display: inline;">
+                    <li class="nav-item"></li>
+                    <form th:if="${isAuthenticated}" id="logout-form" action="/logout" method="POST"
+                        style="display: inline;">
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
                         <button type="submit" class="btn btn-link nav-link" style="display: inline; cursor: pointer;">
                             Logout
@@ -42,7 +46,17 @@
                 </div>
             </div>
         </nav>
-
+        <!-- Flash Messages -->
+        <div class="container mt-3" th:if="${message}">
+            <div class="alert alert-success" role="alert">
+                <span th:text="${message}"></span>
+            </div>
+        </div>
+        <div class="container mt-3" th:if="${errors}">
+            <div th:if="${errors}" class="alert alert-danger" role="alert">
+                <span th:text="${error}"></span>
+            </div>
+        </div>
         <th:block th:replace="${content}"></th:block>
     </div>
 
