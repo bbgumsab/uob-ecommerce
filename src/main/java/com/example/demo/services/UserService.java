@@ -1,7 +1,11 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Product;
 import com.example.demo.models.User;
 import com.example.demo.repo.UserRepo;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +28,10 @@ public class UserService implements UserDetailsService {
     public User registerNewUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+    }
+
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 
     public User findUserByUsername(String username) {
