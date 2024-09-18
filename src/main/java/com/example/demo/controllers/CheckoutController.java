@@ -33,7 +33,7 @@ public class CheckoutController {
             String cancelUrl = "https://localhost:8080/checkout/cancel";
 
             var cartItems = cartItemService.findByUser(user);
-            Session session = stripeService.createCheckoutSession(cartItems, successUrl, cancelUrl);
+            Session session = stripeService.createCheckoutSession(cartItems, user.getId(), successUrl, cancelUrl);
 
             model.addAttribute("sessionId", session.getId());
             model.addAttribute("stripePublicKey", stripeService.getPublicKey());

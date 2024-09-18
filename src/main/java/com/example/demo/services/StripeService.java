@@ -29,7 +29,7 @@ public class StripeService {
         Stripe.apiKey = stripeSecretKey;
     }
 
-    public Session createCheckoutSession(List<CartItem> cartItems, String successUrl, String cancelUrl) throws StripeException {
+    public Session createCheckoutSession(List<CartItem> cartItems, long userId, String successUrl, String cancelUrl) throws StripeException {
         List<SessionCreateParams.LineItem> lineItems = new ArrayList<>();
 
         for (CartItem item : cartItems) {
@@ -62,6 +62,7 @@ public class StripeService {
                 .setCancelUrl(cancelUrl)
                 .setSuccessUrl(successUrl)
                 .addAllLineItem(lineItems)
+                .setClientReferenceId(Long.toString(userId))
                 .build();
 
         return Session.create(params);
