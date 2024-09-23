@@ -10,7 +10,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -61,6 +60,10 @@ public class Order {
         this.user = user;
     }
 
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -77,5 +80,16 @@ public class Order {
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Date();
+    }
+
+    // toString method
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", user=" + user +
+                ", status='" + status + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }
