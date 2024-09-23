@@ -22,7 +22,31 @@
                 <td th:text="${orderSummary.orderId}"></td>
                 <td th:text="${#dates.format(orderSummary.createdAt, 'dd-MMM-yyyy')}"></td>
                 <td th:text="${orderSummary.totalPrice}"></td>
-                <td th:text="${orderSummary.status}"></td>
+                <!-- <td th:text="${orderSummary.status}"></td> -->
+                <td>
+                    <form th:action="@{/orders/{id}/edit_status(id=${orderSummary.orderId})}" method="post"
+                        class="d-inline">
+                        <div class="input-group">
+                            <select class="form-control" id="status" name="status" style="width: 20px;">
+                                <option value="processing" th:selected="${orderSummary.status == 'processing'}">
+                                    Processing</option>
+                                <option value="cancelled" th:selected="${orderSummary.status == 'cancelled'}">Cancelled
+                                </option>
+                                <option value="shipping" th:selected="${orderSummary.status == 'shipping'}">Shipping
+                                </option>
+                                <option value="completed" th:selected="${orderSummary.status == 'completed'}">Completed
+                                </option>
+                            </select>
+                            <div class="input-group-append" style="margin-left: 5px;">
+                                <button type="submit" class="btn btn-sm btn-success">Edit status</button>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <a th:href="@{/orders/{id}(id=${orderSummary.orderId})}">Details</a>
+                    <a th:href="@{/orders/{id}/delete(id=${orderSummary.orderId})}">Delete</a>
+                </td>
             </tr>
         </tbody>
     </table>

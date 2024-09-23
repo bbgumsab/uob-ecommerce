@@ -32,7 +32,8 @@ public class OrderService {
     private final UserService userService;
 
     @Autowired
-    public OrderService(OrderRepo orderRepo, OrderItemRepo orderItemRepo, ProductService productService, UserService userService) {
+    public OrderService(OrderRepo orderRepo, OrderItemRepo orderItemRepo, ProductService productService,
+            UserService userService) {
         this.orderRepo = orderRepo;
         this.orderItemRepo = orderItemRepo;
         this.productService = productService;
@@ -72,15 +73,14 @@ public class OrderService {
                 }
                 Product product = productService.findById(Long.parseLong(productId)).orElse(null);
                 long quantity = item.getQuantity();
-                BigDecimal price = BigDecimal.valueOf(item.getPrice().getUnitAmount()/100);
-                //orderedProducts.put(product, quantity);
+                BigDecimal price = BigDecimal.valueOf(item.getPrice().getUnitAmount() / 100);
+                // orderedProducts.put(product, quantity);
                 OrderItem orderItem = new OrderItem(product, quantity, price, order);
                 orderItemRepo.save(orderItem);
             }
 
             String paymentIntentId = session.getPaymentIntent();
-            //System.out.println(orderedProducts);
-
+            // System.out.println(orderedProducts);
 
             System.out.println("Payment was successful. PaymentIntent ID: " + paymentIntentId);
         } catch (StripeException e) {
@@ -98,5 +98,15 @@ public class OrderService {
     public void handlePaymentFailed(Event event) {
         // Handle failed payment
         // You might want to notify the user, mark the order as failed, etc.
+    }
+
+    @Transactional
+    public void editStatus(Long id, String status) {
+        Order order = orderRepo.findById(id).orElse(null);
+        if (order == null) {
+            throw new RuntimeException("Order not found");
+        }
+        order.setStatus(status);
+        orderRepo.save(order);
     }
 }

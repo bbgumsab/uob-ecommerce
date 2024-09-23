@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: html(
+    ~{::title},
+    ~{::content},
+    ~{},
+    ~{}
+)}">
+
+<title th:text="|Order Details:|"></title>
+
+<th:block th:fragment="content">
+    <h1>Order Details</h1>
+    <div class="product-details">
+        <p><strong>User Name:</strong> <span th:text="${order.user.username}"></span></p>
+        <p><strong>User Email:</strong> <span th:text="${order.user.email}"></span></p>
+        <div class="order-items">
+            <h2>Order Items</h2>
+            <ul>
+                <li th:each="item : ${orderItems}">
+                    <p><strong>Product Id:</strong> <span th:text="${item.product.id}"></span></p>
+                    <p><strong>Product Name:</strong> <span th:text="${item.product.name}"></span></p>
+                    <p><strong>Quantity:</strong> <span th:text="${item.quantity}"></span></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <a href="/orders" class="back-link">Back to Order List</a>
+</th:block>
+
+</html>
