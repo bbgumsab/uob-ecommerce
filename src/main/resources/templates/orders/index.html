@@ -1,0 +1,31 @@
+<html lang="en" th:replace="~{base::html(
+    ~{::title}, 
+    ~{::content},
+    ~{},
+    ~{}
+)}">
+
+<title>Products</title>
+
+<th:block th:fragment="content">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Date</th>
+                <th>Price</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="orderSummary : ${orderSummaries}">
+                <td th:text="${orderSummary.orderId}"></td>
+                <td th:text="${#dates.format(orderSummary.createdAt, 'dd-MMM-yyyy')}"></td>
+                <td th:text="${orderSummary.totalPrice}"></td>
+                <td th:text="${orderSummary.status}"></td>
+            </tr>
+        </tbody>
+    </table>
+</th:block>
+
+</html>
